@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A John Daniel | AI/ML Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #2563EB;
+      --blue-light: #3B82F6;
+      --blue-pale: #EFF6FF;
+      --slate-900: #0F172A;
+      --slate-700: #334155;
+      --slate-500: #64748B;
+      --slate-300: #CBD5E1;
+      --slate-100: #F1F5F9;
+      --white: #FFFFFF;
+      --radius: 12px;
+      --shadow: 0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
+      --shadow-hover: 0 4px 12px rgba(37,99,235,.15), 0 8px 32px rgba(0,0,0,.08);
+      --transition: .25s cubic-bezier(.4,0,.2,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--slate-700);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    /* ── Navbar ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--slate-100);
+      padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-weight: 700; font-size: 1.1rem; color: var(--slate-900);
+      text-decoration: none; letter-spacing: -.3px;
+    }
+    .nav-logo span { color: var(--blue); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--slate-500); text-decoration: none;
+      font-size: .9rem; font-weight: 500; transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-cta {
+      background: var(--blue); color: var(--white) !important;
+      padding: .45rem 1.1rem; border-radius: 8px;
+      transition: background var(--transition) !important;
+    }
+    .nav-cta:hover { background: var(--blue-light) !important; }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--slate-700); border-radius: 2px; }
+
+    /* ── Sections ── */
+    section { padding: 96px 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      display: inline-block; font-size: .75rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 1.2px;
+      color: var(--blue); background: var(--blue-pale);
+      padding: .25rem .75rem; border-radius: 100px; margin-bottom: 1rem;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800;
+      color: var(--slate-900); line-height: 1.2; letter-spacing: -.5px;
+    }
+    .section-sub { color: var(--slate-500); font-size: 1rem; max-width: 540px; margin-top: .5rem; }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: calc(100vh - 64px);
+      display: flex; align-items: center;
+      background: linear-gradient(135deg, var(--white) 60%, var(--blue-pale) 100%);
+      padding: 80px 2rem;
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+      max-width: 1100px; margin: 0 auto; width: 100%;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--blue-pale); color: var(--blue);
+      padding: .35rem .9rem; border-radius: 100px;
+      font-size: .8rem; font-weight: 600; margin-bottom: 1.25rem;
+    }
+    .hero-badge .dot { width: 6px; height: 6px; background: var(--blue); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+    .hero-title {
+      font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 800;
+      color: var(--slate-900); line-height: 1.15; letter-spacing: -.8px; margin-bottom: 1rem;
+    }
+    .hero-title .highlight { color: var(--blue); }
+    .hero-desc { color: var(--slate-500); font-size: 1.05rem; max-width: 480px; margin-bottom: 2rem; }
+    .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .75rem 1.6rem; border-radius: 10px;
+      font-size: .95rem; font-weight: 600; text-decoration: none;
+      transition: all var(--transition); cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--blue); color: var(--white); }
+    .btn-primary:hover { background: var(--blue-light); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(37,99,235,.3); }
+    .btn-outline { background: transparent; color: var(--slate-700); border: 1.5px solid var(--slate-300); }
+    .btn-outline:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-1px); }
+
+    .hero-stats { display: flex; gap: 2.5rem; margin-top: 2.5rem; }
+    .stat-num { font-size: 1.8rem; font-weight: 800; color: var(--slate-900); }
+    .stat-label { font-size: .8rem; color: var(--slate-500); font-weight: 500; }
+
+    .hero-visual { display: flex; justify-content: center; align-items: center; }
+    .avatar-card {
+      width: 320px; background: var(--white); border-radius: 20px;
+      box-shadow: var(--shadow); overflow: hidden; border: 1px solid var(--slate-100);
+    }
+    .avatar-img {
+      width: 100%; height: 220px;
+      background: linear-gradient(135deg, #DBEAFE 0%, #EDE9FE 100%);
+      display: flex; align-items: center; justify-content: center; font-size: 5rem;
+    }
+    .avatar-body { padding: 1.25rem; }
+    .avatar-name { font-weight: 700; font-size: 1.1rem; color: var(--slate-900); }
+    .avatar-role { font-size: .85rem; color: var(--blue); font-weight: 500; margin-top: .2rem; }
+    .avatar-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .85rem; }
+    .tag { background: var(--slate-100); color: var(--slate-700); padding: .2rem .7rem; border-radius: 6px; font-size: .75rem; font-weight: 500; }
+
+    /* ── About ── */
+    #about { background: var(--slate-100); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .about-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+    .highlight-card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 1.25rem; border: 1px solid var(--slate-100); box-shadow: var(--shadow);
+    }
+    .highlight-icon { font-size: 1.75rem; margin-bottom: .5rem; }
+    .highlight-title { font-weight: 600; font-size: .9rem; color: var(--slate-900); }
+    .highlight-text { font-size: .8rem; color: var(--slate-500); margin-top: .25rem; }
+    .about-text p { color: var(--slate-500); margin-bottom: 1rem; line-height: 1.75; }
+
+    /* ── Skills ── */
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1rem; margin-top: 3rem;
+    }
+    .skill-card {
+      background: var(--white); border: 1.5px solid var(--slate-100);
+      border-radius: var(--radius); padding: 1.5rem 1.25rem;
+      text-align: center; transition: all var(--transition); cursor: default;
+    }
+    .skill-card:hover { border-color: var(--blue); box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+    .skill-icon { font-size: 2rem; margin-bottom: .75rem; }
+    .skill-name { font-weight: 600; font-size: .9rem; color: var(--slate-900); }
+    .skill-level { margin-top: .6rem; height: 4px; background: var(--slate-100); border-radius: 2px; overflow: hidden; }
+    .skill-fill { height: 100%; background: var(--blue); border-radius: 2px; width: 0; transition: width 1s ease .3s; }
+
+    /* ── Projects ── */
+    #projects { background: var(--slate-100); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .project-card {
+      background: var(--white); border-radius: 16px; overflow: hidden;
+      border: 1px solid var(--slate-100); box-shadow: var(--shadow);
+      transition: all var(--transition); display: flex; flex-direction: column;
+    }
+    .project-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+    .project-banner { height: 160px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; }
+    .banner-1 { background: linear-gradient(135deg, #DBEAFE, #93C5FD); }
+    .banner-2 { background: linear-gradient(135deg, #D1FAE5, #6EE7B7); }
+    .banner-3 { background: linear-gradient(135deg, #EDE9FE, #C4B5FD); }
+    .project-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .project-title { font-size: 1.05rem; font-weight: 700; color: var(--slate-900); }
+    .project-desc { font-size: .875rem; color: var(--slate-500); margin-top: .5rem; line-height: 1.65; flex: 1; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1rem; }
+    .project-tag { background: var(--blue-pale); color: var(--blue); padding: .2rem .65rem; border-radius: 6px; font-size: .72rem; font-weight: 600; }
+    .project-links { display: flex; gap: .75rem; margin-top: 1.25rem; }
+    .project-link {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .82rem; font-weight: 600; color: var(--blue);
+      text-decoration: none; transition: color var(--transition);
+    }
+    .project-link:hover { color: var(--blue-light); }
+    .project-link svg { width: 14px; height: 14px; }
+
+    /* ── Timeline ── */
+    .timeline { margin-top: 3rem; position: relative; }
+    .timeline::before {
+      content: ''; position: absolute; left: 20px; top: 0; bottom: 0;
+      width: 2px; background: var(--slate-100);
+    }
+    .timeline-item { padding-left: 56px; position: relative; margin-bottom: 2.5rem; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-dot {
+      position: absolute; left: 0; top: 4px;
+      width: 40px; height: 40px; background: var(--blue-pale);
+      border: 2px solid var(--blue); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+    }
+    .timeline-period { font-size: .75rem; font-weight: 600; color: var(--blue); text-transform: uppercase; letter-spacing: .8px; margin-bottom: .25rem; }
+    .timeline-title { font-size: 1rem; font-weight: 700; color: var(--slate-900); }
+    .timeline-org { font-size: .875rem; color: var(--slate-500); margin-top: .15rem; }
+    .timeline-desc { font-size: .875rem; color: var(--slate-500); margin-top: .5rem; line-height: 1.65; }
+    .timeline-desc ul { padding-left: 1.1rem; margin-top: .4rem; }
+    .timeline-desc li { margin-bottom: .3rem; }
+
+    /* ── Certifications ── */
+    #certifications { background: var(--slate-100); }
+    .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 3rem; }
+    .cert-card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 1.25rem 1.5rem; border: 1px solid var(--slate-100);
+      box-shadow: var(--shadow); display: flex; align-items: flex-start; gap: 1rem;
+      transition: all var(--transition);
+    }
+    .cert-card:hover { border-color: var(--blue); box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+    .cert-icon { font-size: 1.75rem; flex-shrink: 0; }
+    .cert-name { font-weight: 600; font-size: .875rem; color: var(--slate-900); line-height: 1.4; }
+    .cert-issuer { font-size: .775rem; color: var(--blue); font-weight: 500; margin-top: .25rem; }
+
+    /* ── Contact ── */
+    #contact { background: linear-gradient(135deg, var(--slate-900) 0%, #1E3A5F 100%); }
+    #contact .section-label { background: rgba(37,99,235,.2); color: #93C5FD; }
+    #contact .section-title { color: var(--white); }
+    #contact .section-sub { color: #94A3B8; }
+
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3rem; align-items: start; }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1.1rem 1.25rem;
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius); text-decoration: none; color: var(--white);
+      transition: all var(--transition);
+    }
+    .contact-link:hover { background: rgba(37,99,235,.2); border-color: rgba(37,99,235,.5); transform: translateX(4px); }
+    .contact-link-icon {
+      width: 40px; height: 40px; background: rgba(37,99,235,.2);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; flex-shrink: 0;
+    }
+    .contact-link-text .label { font-size: .75rem; color: #64748B; font-weight: 500; }
+    .contact-link-text .value { font-size: .9rem; font-weight: 600; color: var(--white); margin-top: .1rem; }
+
+    .contact-form { display: flex; flex-direction: column; gap: .85rem; }
+    .form-group { display: flex; flex-direction: column; gap: .4rem; }
+    .form-label { font-size: .8rem; font-weight: 600; color: #94A3B8; }
+    .form-input, .form-textarea {
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px; padding: .75rem 1rem; font-size: .9rem;
+      font-family: inherit; color: var(--white); transition: border-color var(--transition);
+      outline: none; resize: none;
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: #475569; }
+    .form-input:focus, .form-textarea:focus { border-color: var(--blue); }
+    .form-textarea { min-height: 120px; }
+
+    /* ── Footer ── */
+    footer { text-align: center; padding: 2rem; background: #0A0F1E; color: #475569; font-size: .82rem; }
+    footer a { color: #64748B; text-decoration: none; }
+    footer a:hover { color: var(--blue); }
+
+    /* ── Animations ── */
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .fade-in-delay-1 { transition-delay: .1s; }
+    .fade-in-delay-2 { transition-delay: .2s; }
+    .fade-in-delay-3 { transition-delay: .3s; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--white); padding: 1rem 2rem 2rem; border-bottom: 1px solid var(--slate-100); gap: 1.25rem; }
+      .hamburger { display: flex; }
+      nav { position: relative; }
+      .hero-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-visual { order: -1; }
+      .avatar-card { width: 100%; max-width: 320px; }
+      .hero-stats { gap: 1.5rem; }
+      .about-highlights { grid-template-columns: 1fr 1fr; }
+      section { padding: 64px 1.25rem; }
+    }
+    @media (max-width: 480px) {
+      .about-highlights { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .projects-grid { grid-template-columns: 1fr; }
+      .btn-group { flex-direction: column; }
+      .btn { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ Navbar ══ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">John<span>.AI</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#certifications">Certs</a></li>
+      <li><a href="#contact" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ══ Hero ══ -->
+<section id="hero">
+  <div class="hero-grid">
+    <div class="hero-content">
+      <div class="hero-badge fade-in">
+        <span class="dot"></span> Open to Opportunities
+      </div>
+      <h1 class="hero-title fade-in fade-in-delay-1">
+        Hi, I'm <span class="highlight">A John Daniel</span><br />
+        AI/ML Engineer
+      </h1>
+      <p class="hero-desc fade-in fade-in-delay-2">
+        Agentic AI & Prompt Engineering specialist building intelligent NLP systems, LLM-powered pipelines, and scalable Azure ML solutions that turn unstructured data into business value.
+      </p>
+      <div class="btn-group fade-in fade-in-delay-3">
+        <a href="#projects" class="btn btn-primary">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+          View Projects
+        </a>
+        <a href="#contact" class="btn btn-outline">Get In Touch</a>
+      </div>
+      <div class="hero-stats fade-in">
+        <div>
+          <div class="stat-num">18+</div>
+          <div class="stat-label">Years in Tech</div>
+        </div>
+        <div>
+          <div class="stat-num">6+</div>
+          <div class="stat-label">Companies</div>
+        </div>
+        <div>
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Certifications</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual fade-in fade-in-delay-2">
+      <div class="avatar-card">
+        <div class="avatar-img">🤖</div>
+        <div class="avatar-body">
+          <div class="avatar-name">A John Daniel</div>
+          <div class="avatar-role">Data Scientist @ Mercor · India</div>
+          <div class="avatar-tags">
+            <span class="tag">Agentic AI</span>
+            <span class="tag">Azure ML</span>
+            <span class="tag">LLMs</span>
+            <span class="tag">NLP</span>
+            <span class="tag">Prompt Eng.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ About ══ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <span class="section-label fade-in">About Me</span>
+        <h2 class="section-title fade-in">Bridging Business Needs<br />& AI Capabilities</h2>
+        <div style="margin-top: 1.5rem;">
+          <p class="fade-in">I am an AI/ML Developer and Prompt Engineer passionate about building intelligent systems that solve real-world business problems. My expertise spans Agentic AI, Natural Language Processing, Machine Learning pipelines, and Microsoft Azure ML deployments.</p>
+          <p class="fade-in">I specialize in crafting autonomous NLP workflows that self-assess performance, trigger retraining, and continuously improve — as well as operationalizing end-to-end pipelines in Azure Machine Learning with FastAPI integrations.</p>
+          <p class="fade-in">With a strong foundation in enterprise-scale software engineering from 18+ years across DXC, HCL, HSBC, Accenture, and LTI, I bring both depth and breadth to every AI solution I deliver. I actively share research and thought leadership on LinkedIn, Medium, and GitHub.</p>
+        </div>
+      </div>
+      <div>
+        <div class="about-highlights">
+          <div class="highlight-card fade-in">
+            <div class="highlight-icon">🎓</div>
+            <div class="highlight-title">Education</div>
+            <div class="highlight-text">M.Sc. IT & E-Commerce — Manonmaniam Sundaranar University</div>
+          </div>
+          <div class="highlight-card fade-in fade-in-delay-1">
+            <div class="highlight-icon">🧠</div>
+            <div class="highlight-title">Specialization</div>
+            <div class="highlight-text">Agentic AI, LLMs, NLP, Azure ML, Prompt Engineering</div>
+          </div>
+          <div class="highlight-card fade-in fade-in-delay-2">
+            <div class="highlight-icon">📍</div>
+            <div class="highlight-title">Location</div>
+            <div class="highlight-text">India · LinkedIn Top Contributor in AI & Data Science</div>
+          </div>
+          <div class="highlight-card fade-in fade-in-delay-3">
+            <div class="highlight-icon">✍️</div>
+            <div class="highlight-title">Thought Leadership</div>
+            <div class="highlight-text">Writing on AI, ML & Automation at Medium & LinkedIn</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Skills ══ -->
+<section id="skills">
+  <div class="container">
+    <span class="section-label fade-in">Skills</span>
+    <h2 class="section-title fade-in">Technical Toolkit</h2>
+    <p class="section-sub fade-in">The core technologies I use to design, build, and deploy production AI systems.</p>
+
+    <div class="skills-grid">
+      <div class="skill-card fade-in" data-level="92">
+        <div class="skill-icon">🐍</div>
+        <div class="skill-name">Python</div>
+        <div class="skill-level"><div class="skill-fill"></div></div>
+      </div>
+      <div class="skill-card fade-in fade-in-delay-1" data-level="88">
+        <div class="skill-icon">☁️</div>
+        <div class="skill-name">Azure ML</div>
+        <div class="skill-level"><div class="skill-fill"></div></div>
+      </div>
+      <div class="skill-card fade-in fade-in-delay-2" data-level="85">
+        <div class="skill-icon">🤗</div>
+        <div class="skill-name">Transformers / BERT</div>
+        <div class="skill-level"><div class="skill-fill"></div></div>
+      </div>
+      <div class="skill-card fade-in fade-in-delay-3" data-level="87">
+        <div class="skill-icon">⛓️</div>
+        <div class="skill-name">LangChain</div>
+        <div class="skill-level"><div class="skill-fill"></div></div>
+      </div>
+      <div class="skill-card fade-in" data-level="90">
+        <div class="skill-icon">💬</div>
+        <div class="skill-name">Prompt Engineering</div>
+        <div class="skill-level"><div class="skill-fill"></div></div>
+      </div>
+      <div class="skill-card fade-in fade-in-delay-1" data-level="82">
+        <div class="skill-icon">📊</div>
+        <div class="skill-name">Scikit-Learn</div>
+        <div class="skill-level"><div class="skill-fill"></div></div>
+      </div>
+      <div class="skill-card fade-in fade-in-delay-2" data-level="80">
+        <div class="skill-icon">⚡</div>
+        <div class="skill-name">FastAPI</div>
+        <div class="skill-level"><div class="skill-fill"></div></div>
+      </div>
+      <div class="skill-card fade-in fade-in-delay-3" data-level="85">
+        <div class="skill-icon">🧬</div>
+        <div class="skill-name">NLP / LLMs</div>
+        <div class="skill-level"><div class="skill-fill"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Projects ══ -->
+<section id="projects">
+  <div class="container">
+    <span class="section-label fade-in">Projects</span>
+    <h2 class="section-title fade-in">What I've Built</h2>
+    <p class="section-sub fade-in">Real AI systems designed and deployed at Adeption — production-grade, cloud-native, and impact-driven.</p>
+
+    <div class="projects-grid">
+      <!-- Project 1 -->
+      <div class="project-card fade-in">
+        <div class="project-banner banner-1">🤖</div>
+        <div class="project-body">
+          <div class="project-title">LLM-Powered Feedback System</div>
+          <div class="project-desc">
+            Built an enterprise feedback system using GPT-4o, GPT-3.5, and LLaMA-3 with advanced prompt engineering for context-aware, structured outputs — automating qualitative analysis at scale.
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">GPT-4o</span>
+            <span class="project-tag">LLaMA-3</span>
+            <span class="project-tag">Prompt Eng.</span>
+            <span class="project-tag">Azure OpenAI</span>
+            <span class="project-tag">Python</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/JohnDBSDSN" class="project-link" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card fade-in fade-in-delay-1">
+        <div class="project-banner banner-2">🔍</div>
+        <div class="project-body">
+          <div class="project-title">Semantic Recommendation Engine</div>
+          <div class="project-desc">
+            Developed a semantic recommendation system using OpenAI Ada embeddings, GPT2Tokenizer, and Cosine Similarity — delivering hyper-personalized content recommendations segmented by client profile.
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Ada Embeddings</span>
+            <span class="project-tag">Cosine Similarity</span>
+            <span class="project-tag">OpenAI</span>
+            <span class="project-tag">Pandas</span>
+            <span class="project-tag">Python</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/JohnDBSDSN" class="project-link" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-card fade-in fade-in-delay-2">
+        <div class="project-banner banner-3">⚙️</div>
+        <div class="project-body">
+          <div class="project-title">Agentic AI Auto-Retraining Pipeline</div>
+          <div class="project-desc">
+            Delivered Agentic AI pipelines with auto-retraining logic using GridSearchCV and multi-label NLP classifiers (HashingVectorizer, ClassifierChain) deployed via Azure ML Endpoints and FastAPI.
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Azure ML</span>
+            <span class="project-tag">FastAPI</span>
+            <span class="project-tag">GridSearchCV</span>
+            <span class="project-tag">BERT</span>
+            <span class="project-tag">Scikit-Learn</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/JohnDBSDSN" class="project-link" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 4 — Multi-Agent Document Intelligence Pipeline -->
+      <div class="project-card fade-in fade-in-delay-3">
+        <div class="project-banner" style="background:linear-gradient(135deg,#0F172A,#1E3A5F);height:160px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
+          <span style="font-size:2.5rem;">&#x1F916;</span>
+          <span style="font-size:0.7rem;font-weight:700;color:#10B981;letter-spacing:1.5px;">MULTI-AGENT &middot; AGENTIC AI</span>
+        </div>
+        <div class="project-body">
+          <div class="project-title">Multi-Agent Document Intelligence Pipeline</div>
+          <div class="project-desc">
+            4 specialized AI agents that extract, validate, and report on contract fields automatically in under 60 seconds. FAISS vector search + GPT-3.5 extraction + ReportLab PDF generation + Agent 4 audit trail with confidence scoring. Streamlit UI + FastAPI REST API.
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">LangChain</span>
+            <span class="project-tag">FAISS</span>
+            <span class="project-tag">GPT-3.5</span>
+            <span class="project-tag">FastAPI</span>
+            <span class="project-tag">Streamlit</span>
+            <span class="project-tag">ReportLab</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/JohnDBSDSN/multi-agent-document-pipeline" class="project-link" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </a>
+            <a href="https://www.youtube.com/watch?v=Jp7Hv53QTv0" class="project-link" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              Watch Demo
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ Experience ══ -->
+<section id="experience">
+  <div class="container">
+    <span class="section-label fade-in">Journey</span>
+    <h2 class="section-title fade-in">Experience & Education</h2>
+    <p class="section-sub fade-in">18+ years of software engineering evolved into cutting-edge AI/ML development.</p>
+
+    <div class="timeline">
+      <div class="timeline-item fade-in">
+        <div class="timeline-dot">🔬</div>
+        <div class="timeline-period">Nov 2025 — Present</div>
+        <div class="timeline-title">Data Scientist</div>
+        <div class="timeline-org">Mercor</div>
+        <div class="timeline-desc">Contributing to data science and AI initiatives in a fast-paced AI-first environment.</div>
+      </div>
+
+      <div class="timeline-item fade-in fade-in-delay-1">
+        <div class="timeline-dot">🤖</div>
+        <div class="timeline-period">Jul 2024 — Nov 2025</div>
+        <div class="timeline-title">AI Developer</div>
+        <div class="timeline-org">Adeption · Pune, Maharashtra</div>
+        <div class="timeline-desc">
+          <ul>
+            <li>Built LLM-powered feedback system using GPT-4o, GPT-3.5, and LLaMA-3</li>
+            <li>Developed semantic recommendation engine with OpenAI Ada embeddings & Cosine Similarity</li>
+            <li>Deployed multi-label NLP classifiers via Azure ML Endpoints & FastAPI</li>
+            <li>Delivered Agentic AI pipelines with auto-retraining logic (GridSearchCV)</li>
+            <li>Integrated BERT-based transformers and TF-IDF pipelines for NLP automation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-in fade-in-delay-2">
+        <div class="timeline-dot">🎓</div>
+        <div class="timeline-period">Jun 2023 — Apr 2024</div>
+        <div class="timeline-title">Technical Design Head</div>
+        <div class="timeline-org">be10x.in · India</div>
+        <div class="timeline-desc">Led technical design at a leading edtech platform helping working professionals upskill and boost productivity.</div>
+      </div>
+
+      <div class="timeline-item fade-in fade-in-delay-3">
+        <div class="timeline-dot">📊</div>
+        <div class="timeline-period">Feb 2022 — Mar 2023</div>
+        <div class="timeline-title">Data Scientist (Freelance)</div>
+        <div class="timeline-org">Independent · Hyderabad</div>
+        <div class="timeline-desc">Transformed business requirements into ML solutions — data preparation, modelling, deployment and monitoring of end-to-end machine learning systems.</div>
+      </div>
+
+      <div class="timeline-item fade-in">
+        <div class="timeline-dot">💼</div>
+        <div class="timeline-period">Mar 2013 — Jan 2022</div>
+        <div class="timeline-title">Professional 2 Application Developer — Team Lead</div>
+        <div class="timeline-org">DXC Technology · Hyderabad (8 yrs 11 months)</div>
+        <div class="timeline-desc">Led delivery and production support for large-scale enterprise applications. Onsite coordinator for UK CitiGroup Bank. SME in BFSI domain across Commercial, Banking, Securities, and Trade Life Cycle.</div>
+      </div>
+
+      <div class="timeline-item fade-in fade-in-delay-1">
+        <div class="timeline-dot">🏢</div>
+        <div class="timeline-period">2005 — 2013</div>
+        <div class="timeline-title">Senior Software Engineer</div>
+        <div class="timeline-org">HCL Technologies · HSBC · Accenture · LTI (Larsen & Toubro Infotech)</div>
+        <div class="timeline-desc">Progressed through senior engineering roles designing, developing, and maintaining enterprise mainframe applications across Chennai, Hyderabad, and Pune.</div>
+      </div>
+
+      <div class="timeline-item fade-in fade-in-delay-2">
+        <div class="timeline-dot">🎓</div>
+        <div class="timeline-period">May 2000 — Mar 2002</div>
+        <div class="timeline-title">Master of Science — IT & E-Commerce</div>
+        <div class="timeline-org">Manonmaniam Sundaranar University</div>
+        <div class="timeline-desc">Post-graduate degree specializing in Information Technology and E-Commerce, laying the foundation for a career in enterprise software and AI.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Certifications ══ -->
+<section id="certifications">
+  <div class="container">
+    <span class="section-label fade-in">Credentials</span>
+    <h2 class="section-title fade-in">Certifications</h2>
+    <p class="section-sub fade-in">Continuous learning across Python, Machine Learning, AI, and the future of work.</p>
+
+    <div class="cert-grid">
+      <div class="cert-card fade-in">
+        <div class="cert-icon">🐍</div>
+        <div>
+          <div class="cert-name">The Complete Python Bootcamp: Zero to Hero in Python</div>
+          <div class="cert-issuer">Udemy</div>
+        </div>
+      </div>
+      <div class="cert-card fade-in fade-in-delay-1">
+        <div class="cert-icon">🤖</div>
+        <div>
+          <div class="cert-name">Certificate of Completion — Introduction to Machine Learning</div>
+          <div class="cert-issuer">Kaggle / Online</div>
+        </div>
+      </div>
+      <div class="cert-card fade-in fade-in-delay-2">
+        <div class="cert-icon">🧠</div>
+        <div>
+          <div class="cert-name">Artificial Intelligence Essentials V2</div>
+          <div class="cert-issuer">IBM / Online</div>
+        </div>
+      </div>
+      <div class="cert-card fade-in fade-in-delay-3">
+        <div class="cert-icon">💻</div>
+        <div>
+          <div class="cert-name">The Complete Python Course — Learn Python by Doing in 2023</div>
+          <div class="cert-issuer">Udemy</div>
+        </div>
+      </div>
+      <div class="cert-card fade-in">
+        <div class="cert-icon">🚀</div>
+        <div>
+          <div class="cert-name">Preparing for the Future of Work with AI Agents</div>
+          <div class="cert-issuer">Online</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Contact ══ -->
+<section id="contact">
+  <div class="container">
+    <span class="section-label fade-in">Contact</span>
+    <h2 class="section-title fade-in">Let's Connect</h2>
+    <p class="section-sub fade-in">Open to AI/ML roles, research collaborations, consulting, and interesting AI projects.</p>
+
+    <div class="contact-grid">
+      <div class="contact-links">
+        <a href="mailto:a.johndaniel@gmail.com" class="contact-link fade-in">
+          <div class="contact-link-icon">📧</div>
+          <div class="contact-link-text">
+            <div class="label">Email</div>
+            <div class="value">a.johndaniel@gmail.com</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/john-daniel-ai/" class="contact-link fade-in fade-in-delay-1" target="_blank">
+          <div class="contact-link-icon">💼</div>
+          <div class="contact-link-text">
+            <div class="label">LinkedIn</div>
+            <div class="value">linkedin.com/in/john-daniel-ai</div>
+          </div>
+        </a>
+        <a href="https://github.com/JohnDBSDSN" class="contact-link fade-in fade-in-delay-2" target="_blank">
+          <div class="contact-link-icon">🐙</div>
+          <div class="contact-link-text">
+            <div class="label">GitHub</div>
+            <div class="value">github.com/JohnDBSDSN</div>
+          </div>
+        </a>
+        <a href="https://medium.com/@a.johndaniel" class="contact-link fade-in fade-in-delay-3" target="_blank">
+          <div class="contact-link-icon">✍️</div>
+          <div class="contact-link-text">
+            <div class="label">Blog</div>
+            <div class="value">medium.com/@a.johndaniel</div>
+          </div>
+        </a>
+        <a href="https://zenithquest.my.canva.site/" class="contact-link fade-in" target="_blank">
+          <div class="contact-link-icon">🌐</div>
+          <div class="contact-link-text">
+            <div class="label">Portfolio</div>
+            <div class="value">zenithquest.my.canva.site</div>
+          </div>
+        </a>
+      </div>
+
+      <form class="contact-form fade-in" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input class="form-input" type="text" placeholder="Jane Smith" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="form-input" type="email" placeholder="jane@company.com" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Tell me about your project or opportunity..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">
+          Send Message
+        </button>
+        <div id="form-success" style="display:none; text-align:center; color:#6EE7B7; font-size:.875rem; padding:.5rem;">
+          ✓ Message sent! I'll get back to you shortly.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Footer ══ -->
+<footer>
+  <p>© 2026 ZenithQuest · John Daniel · AI/ML Engineer · India &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/john-daniel-ai/" target="_blank">LinkedIn</a> · <a href="https://github.com/JohnDBSDSN" target="_blank">GitHub</a> · <a href="https://medium.com/@a.johndaniel" target="_blank">Medium</a> &nbsp;·&nbsp; <a href="#hero">Back to top ↑</a></p>
+</footer>
+
+<script>
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Fade-in + skill bar animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        const fill = entry.target.querySelector?.('.skill-fill');
+        if (fill && entry.target.dataset.level) {
+          fill.style.width = entry.target.dataset.level + '%';
+        }
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Trigger hero immediately
+  document.querySelectorAll('#hero .fade-in').forEach(el => {
+    setTimeout(() => el.classList.add('visible'), 100);
+  });
+
+  // Active nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
+    navItems.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--blue)' : '';
+    });
+  });
+
+  // Contact form
+  function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('form-success').style.display = 'block';
+    e.target.reset();
+    setTimeout(() => document.getElementById('form-success').style.display = 'none', 5000);
+  }
+</script>
+</body>
+</html>
